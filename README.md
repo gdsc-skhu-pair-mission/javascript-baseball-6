@@ -11,7 +11,7 @@
 - 미션 구현을 완료한 후 GitHub을 통해 제출해야 한다.
   - GitHub을 활용한 제출 방법은 [프리코스 과제 제출](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse) 문서를 참고해
     제출한다.
-- Pull Request를 생성할 때, 반드시 `gdsc-skhu-pair-mission`의 본인 **GitHub 아이디** 브랜치를 만들고 해당 브랜치에 생성해야 합니다.
+- Pull Request를 생성할 때, 반드시 `gdsc-skhu-pair-mission` 조직에 있는 저장소에 본인 **GitHub 아이디** 브랜치를 만들고 해당 브랜치에 생성해야 한다.
 
 ## 🚨 과제 제출 전 체크 리스트 - 0점 방지
 
