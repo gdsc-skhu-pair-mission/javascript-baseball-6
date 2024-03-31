@@ -44,6 +44,28 @@ async function CompareAnswer(CORRECT_ANSWER, userAnswer) {
     if (userAnswer[i] === CORRECT_ANSWER[i]) strike++;
     else if (CORRECT_ANSWER.includes(userAnswer[i])) ball++;
   }
+  return [strike, ball];
+}
+
+async function playNumberGame() {
+  const answer = RandomAnswer();
+  const userAnswer = await InputAnswer();
+  const [strike, ball] = CompareAnswer(answer, userAnswer);
+
+  if (strike === 3) {
+    Console.print('3스트라이크');
+    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+
+    // 여기에 재시작 함수를 추가
+  }
+  if (strike === 0 && ball === 0) {
+    Console.print('낫싱');
+  }
+  if (ball > 0 || ball < 3) {
+    if (strike > 0 || strike < 3) {
+      Console.print(`${ball}볼 ${strike}스트라이크`);
+    }
+  }
 }
 
 class App {
@@ -51,7 +73,9 @@ class App {
   // eslint-disable-next-line class-methods-use-this
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
-    await InputAnswer();
+    const correctAnswer = RandomAnswer();
+    const userAnswer = await InputAnswer();
+    await CompareAnswer(correctAnswer, userAnswer);
   }
 }
 const game = new App();
