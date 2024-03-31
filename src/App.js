@@ -1,9 +1,12 @@
-import { USER_INPUT_NUMBER } from "./generator";
+import { startGame } from "./async.js";
 
 class App {
-  async play() {}
+  async play() {
+    // await startGame(); // startGame 함수가 완료될 때까지 기다림
+    // console.log("게임이 종료되었습니다."); // 게임 종료 후에 실행될 코드 추가
+  }
 }
 
-await USER_INPUT_NUMBER();
+startGame();
 
 export default App;
