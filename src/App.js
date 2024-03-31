@@ -35,6 +35,17 @@ async function InputAnswer() {
 
   return userAnswer;
 }
+
+async function CompareAnswer(CORRECT_ANSWER, userAnswer) {
+  let strike = 0;
+  let ball = 0;
+
+  for (let i = 0; i < 3; i++) {
+    if (userAnswer[i] === CORRECT_ANSWER[i]) strike++;
+    else if (CORRECT_ANSWER.includes(userAnswer[i])) ball++;
+  }
+}
+
 class App {
   // 아직 this를 사용하지않아서 임시로 에러를 해결하기 위해 eslint-disable를 사용하였습니다.
   // eslint-disable-next-line class-methods-use-this
