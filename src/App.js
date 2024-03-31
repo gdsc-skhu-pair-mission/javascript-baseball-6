@@ -18,19 +18,19 @@ async function InputAnswer() {
 
   userInput = await Console.readLineAsync('숫자를 입력해주세요 : ');
   if (Number.isNaN(Number(userInput))) {
-    throw new Error('숫자가 아닌 것을 입력하시면 안됩니다.');
+    throw new Error('[ERROR] 숫자가 아닌 것을 입력하시면 안됩니다.');
   }
   if (userInput.length !== 3) {
-    throw new Error('3자리 수를 입력해주세요.');
+    throw new Error('[ERROR] 3자리 수를 입력해주세요.');
   }
 
   userAnswer = Array.from(userInput).map(Number);
 
   if (new Set(userAnswer).size !== userAnswer.length) {
-    throw new Error('중복된 수를 입력하시면 안됩니다.');
+    throw new Error('[ERROR] 중복된 수를 입력하시면 안됩니다.');
   }
   if (userAnswer.some((number) => number < 1 || number > 9)) {
-    throw new Error('1 ~ 9 사이의 수를 입력해주세요.');
+    throw new Error('[ERROR] 1 ~ 9 사이의 수를 입력해주세요.');
   }
 
   return userAnswer;
@@ -74,12 +74,13 @@ async function playNumberGame() {
   }
 
   // 재시작 로직 추가
+  // eslint-disable-next-line no-use-before-define
   AskRestart();
 }
 
 async function AskRestart() {
-  let restartNumber = await Console.readLineAsync(
-    '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',
+  const restartNumber = await Console.readLineAsync(
+    '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
   );
 
   if (restartNumber === '1') {
@@ -87,7 +88,7 @@ async function AskRestart() {
   } else if (restartNumber === '2') {
     Console.print('게임을 종료합니다.');
   } else {
-    throw new Error('잘못된 입력입니다.');
+    throw new Error('[ERROR] 잘못된 입력입니다.');
   }
 }
 
