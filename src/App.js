@@ -53,7 +53,8 @@ async function playNumberGame() {
   while (true) {
     // eslint-disable-next-line no-await-in-loop
     const userAnswer = await InputAnswer();
-    const [strike, ball] = CompareAnswer(answer, userAnswer);
+    // eslint-disable-next-line no-await-in-loop
+    const [strike, ball] = await CompareAnswer(answer, userAnswer);
     let resultMessage = '';
 
     if (ball > 0) {
@@ -80,9 +81,7 @@ class App {
   // eslint-disable-next-line class-methods-use-this
   async play() {
     Console.print('숫자 야구 게임을 시작합니다.');
-    const correctAnswer = RandomAnswer();
-    const userAnswer = await InputAnswer();
-    await playNumberGame(correctAnswer, userAnswer);
+    await playNumberGame();
   }
 }
 const game = new App();
