@@ -49,23 +49,30 @@ async function CompareAnswer(CORRECT_ANSWER, userAnswer) {
 
 async function playNumberGame() {
   const answer = RandomAnswer();
-  const userAnswer = await InputAnswer();
-  const [strike, ball] = CompareAnswer(answer, userAnswer);
 
-  if (strike === 3) {
-    Console.print('3스트라이크');
-    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+  while (true) {
+    // eslint-disable-next-line no-await-in-loop
+    const userAnswer = await InputAnswer();
+    const [strike, ball] = CompareAnswer(answer, userAnswer);
+    let resultMessage = '';
 
-    // 여기에 재시작 함수를 추가
-  }
-  if (strike === 0 && ball === 0) {
-    Console.print('낫싱');
-  }
-  if (ball > 0 || ball < 3) {
-    if (strike > 0 || strike < 3) {
-      Console.print(`${ball}볼 ${strike}스트라이크`);
+    if (ball > 0) {
+      resultMessage += `${ball}볼 `;
+    }
+    if (strike > 0) {
+      resultMessage += `${strike}스트라이크`;
+    }
+    if (strike === 0 && ball === 0) {
+      resultMessage = '낫싱';
+    }
+    Console.print(resultMessage);
+    if (strike === 3) {
+      Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+      break;
     }
   }
+
+  // 재시작 로직 추가
 }
 
 class App {
@@ -75,7 +82,7 @@ class App {
     Console.print('숫자 야구 게임을 시작합니다.');
     const correctAnswer = RandomAnswer();
     const userAnswer = await InputAnswer();
-    await CompareAnswer(correctAnswer, userAnswer);
+    await playNumberGame(correctAnswer, userAnswer);
   }
 }
 const game = new App();
