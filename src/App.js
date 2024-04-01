@@ -1,9 +1,17 @@
-import { USER_INPUT_NUMBER } from "./generator";
+import GameManager from "./async.js";
 
 class App {
-  async play() {}
+  async play() {
+    const GAMEMANAGER = new GameManager();
+    GAMEMANAGER.gameStart();
+    const USER_NUM = await GAMEMANAGER.getUserInput();
+    const RESULT = await GAMEMANAGER.startGame(USER_NUM);
+    if (!RESULT) {
+      await GAMEMANAGER.askForRestart();
+    }
+  }
 }
-
-await USER_INPUT_NUMBER();
+const app = new App();
+app.play();
 
 export default App;
