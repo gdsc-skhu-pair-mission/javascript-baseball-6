@@ -49,6 +49,8 @@ async function CompareAnswer(CORRECT_ANSWER, userAnswer) {
 
 async function playNumberGame() {
   const answer = RandomAnswer();
+  // 테스트 할 때 정답을 알기위한 로그
+  // console.log(answer);
 
   while (true) {
     // eslint-disable-next-line no-await-in-loop
