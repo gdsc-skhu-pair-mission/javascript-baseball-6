@@ -1,4 +1,4 @@
-import { startGame } from "./async.js";
+import { startGame } from "./game.js";
 
 class App {
   async play() {
