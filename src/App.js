@@ -77,7 +77,7 @@ async function playNumberGame() {
 
   // 재시작 로직 추가
   // eslint-disable-next-line no-use-before-define
-  AskRestart();
+  await AskRestart();
 }
 
 async function AskRestart() {
