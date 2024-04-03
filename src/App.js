@@ -2,8 +2,9 @@ import { Random, Console } from '@woowacourse/mission-utils';
 
 function createRandomNumbers() {
   const RANDOM_NUMBERS = [];
+  const NUMBER_DIGITS = 3;
 
-  while (RANDOM_NUMBERS.length < 3) {
+  while (RANDOM_NUMBERS.length < NUMBER_DIGITS) {
     const number = Random.pickNumberInRange(1, 9);
     if (!RANDOM_NUMBERS.includes(number)) {
       RANDOM_NUMBERS.push(number);
@@ -33,15 +34,31 @@ async function validateUserInput() {
   return USER_VALUE;
 }
 
-async function CompareUserValue(CORRECT_ANSWER, userAnswer) {
+async function CompareUserValue(CORRECT_ANSWER, USER_VALUE) {
   let strike = 0;
   let ball = 0;
+  const NUMBER_DIGITS = 3;
 
-  for (let i = 0; i < 3; i++) {
-    if (userAnswer[i] === CORRECT_ANSWER[i]) strike++;
-    else if (CORRECT_ANSWER.includes(userAnswer[i])) ball++;
+  for (let i = 0; i < NUMBER_DIGITS; i++) {
+    if (USER_VALUE[i] === CORRECT_ANSWER[i]) strike++;
+    else if (CORRECT_ANSWER.includes(USER_VALUE[i])) ball++;
   }
   return [strike, ball];
+}
+
+async function askForRestart() {
+  const CHECK_RESTART_NUMBER = await Console.readLineAsync(
+    '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
+  );
+
+  if (CHECK_RESTART_NUMBER === '1') {
+    // eslint-disable-next-line no-use-before-define
+    await playNumberGame();
+  } else if (CHECK_RESTART_NUMBER === '2') {
+    Console.print('게임을 종료합니다.');
+  } else {
+    throw new Error('[ERROR] 잘못된 입력입니다.');
+  }
 }
 
 async function playNumberGame() {
@@ -51,9 +68,9 @@ async function playNumberGame() {
 
   while (true) {
     // eslint-disable-next-line no-await-in-loop
-    const userValue = await validateUserInput();
+    const USER_INPUT_VALUE = await validateUserInput();
     // eslint-disable-next-line no-await-in-loop
-    const [strike, ball] = await CompareUserValue(ANSWER, userValue);
+    const [strike, ball] = await CompareUserValue(ANSWER, USER_INPUT_VALUE);
     let resultMessage = '';
 
     if (ball > 0) {
@@ -72,23 +89,7 @@ async function playNumberGame() {
     }
   }
 
-  // 재시작 로직 추가
-  // eslint-disable-next-line no-use-before-define
   await askForRestart();
-}
-
-async function askForRestart() {
-  const CHECK_RESTART_NUMBER = await Console.readLineAsync(
-    '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
-  );
-
-  if (CHECK_RESTART_NUMBER === '1') {
-    await playNumberGame();
-  } else if (CHECK_RESTART_NUMBER === '2') {
-    Console.print('게임을 종료합니다.');
-  } else {
-    throw new Error('[ERROR] 잘못된 입력입니다.');
-  }
 }
 
 class App {
