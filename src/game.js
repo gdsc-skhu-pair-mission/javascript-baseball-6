@@ -21,7 +21,7 @@ const getUserInput = async () => {
 };
 
 const checkUserInputNumber = async (inputNumber, user_input) => {
-  const CHECK_USER_INPUT = /^[0-9]+$/;
+  const CHECK_USER_INPUT = /^[1-9]+$/;
 
   if (!CHECK_USER_INPUT.test(user_input)) {
     throw new Error("[ERROR] 잘못된 입력입니다.");
