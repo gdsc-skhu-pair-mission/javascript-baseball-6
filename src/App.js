@@ -34,7 +34,7 @@ async function validateUserInput() {
   return USER_VALUE;
 }
 
-async function CompareUserValue(CORRECT_ANSWER, USER_VALUE) {
+function CompareUserValue(CORRECT_ANSWER, USER_VALUE) {
   let strike = 0;
   let ball = 0;
   const NUMBER_DIGITS = 3;
@@ -64,7 +64,7 @@ async function askForRestart() {
 async function playNumberGame() {
   const ANSWER = createRandomNumbers();
   // 테스트 할 때 정답을 알기위한 로그
-  Console.print(ANSWER);
+  // Console.print(ANSWER);
 
   while (true) {
     // eslint-disable-next-line no-await-in-loop
