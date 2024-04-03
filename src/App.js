@@ -1,39 +1,39 @@
 import { Random, Console } from '@woowacourse/mission-utils';
 
-function RandomAnswer() {
-  const CORRECT_ANSWER = [];
+function createRandomNumbers() {
+  const RANDOM_NUMBERS = [];
 
-  while (CORRECT_ANSWER.length < 3) {
+  while (RANDOM_NUMBERS.length < 3) {
     const number = Random.pickNumberInRange(1, 9);
-    if (!CORRECT_ANSWER.includes(number)) {
-      CORRECT_ANSWER.push(number);
+    if (!RANDOM_NUMBERS.includes(number)) {
+      RANDOM_NUMBERS.push(number);
     }
   }
-  return CORRECT_ANSWER;
+  return RANDOM_NUMBERS;
 }
 
-async function InputAnswer() {
-  const userInput = await Console.readLineAsync('숫자를 입력해주세요 : ');
-  const userAnswer = Array.from(userInput).map(Number);
+async function validateUserInput() {
+  const USER_INPUT = await Console.readLineAsync('숫자를 입력해주세요 : ');
+  const USER_VALUE = Array.from(USER_INPUT).map(Number);
 
-  if (Number.isNaN(Number(userInput))) {
+  if (Number.isNaN(Number(USER_INPUT))) {
     throw new Error('[ERROR] 숫자가 아닌 것을 입력하시면 안됩니다.');
   }
-  if (userInput.length !== 3) {
+  if (USER_INPUT.length !== 3) {
     throw new Error('[ERROR] 3자리 수를 입력해주세요.');
   }
 
-  if (new Set(userAnswer).size !== userAnswer.length) {
+  if (new Set(USER_VALUE).size !== USER_VALUE.length) {
     throw new Error('[ERROR] 중복된 수를 입력하시면 안됩니다.');
   }
-  if (userAnswer.some((number) => number < 1 || number > 9)) {
+  if (USER_VALUE.some((number) => number < 1 || number > 9)) {
     throw new Error('[ERROR] 1 ~ 9 사이의 수를 입력해주세요.');
   }
 
-  return userAnswer;
+  return USER_VALUE;
 }
 
-async function CompareAnswer(CORRECT_ANSWER, userAnswer) {
+async function CompareUserValue(CORRECT_ANSWER, userAnswer) {
   let strike = 0;
   let ball = 0;
 
@@ -45,15 +45,15 @@ async function CompareAnswer(CORRECT_ANSWER, userAnswer) {
 }
 
 async function playNumberGame() {
-  const answer = RandomAnswer();
+  const ANSWER = createRandomNumbers();
   // 테스트 할 때 정답을 알기위한 로그
-  console.log(answer);
+  Console.print(ANSWER);
 
   while (true) {
     // eslint-disable-next-line no-await-in-loop
-    const userAnswer = await InputAnswer();
+    const userValue = await validateUserInput();
     // eslint-disable-next-line no-await-in-loop
-    const [strike, ball] = await CompareAnswer(answer, userAnswer);
+    const [strike, ball] = await CompareUserValue(ANSWER, userValue);
     let resultMessage = '';
 
     if (ball > 0) {
@@ -74,17 +74,17 @@ async function playNumberGame() {
 
   // 재시작 로직 추가
   // eslint-disable-next-line no-use-before-define
-  await AskRestart();
+  await askForRestart();
 }
 
-async function AskRestart() {
-  const restartNumber = await Console.readLineAsync(
+async function askForRestart() {
+  const CHECK_RESTART_NUMBER = await Console.readLineAsync(
     '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
   );
 
-  if (restartNumber === '1') {
+  if (CHECK_RESTART_NUMBER === '1') {
     await playNumberGame();
-  } else if (restartNumber === '2') {
+  } else if (CHECK_RESTART_NUMBER === '2') {
     Console.print('게임을 종료합니다.');
   } else {
     throw new Error('[ERROR] 잘못된 입력입니다.');
