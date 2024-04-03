@@ -13,18 +13,15 @@ function RandomAnswer() {
 }
 
 async function InputAnswer() {
-  let userInput;
-  let userAnswer;
+  const userInput = await Console.readLineAsync('숫자를 입력해주세요 : ');
+  const userAnswer = Array.from(userInput).map(Number);
 
-  userInput = await Console.readLineAsync('숫자를 입력해주세요 : ');
   if (Number.isNaN(Number(userInput))) {
     throw new Error('[ERROR] 숫자가 아닌 것을 입력하시면 안됩니다.');
   }
   if (userInput.length !== 3) {
     throw new Error('[ERROR] 3자리 수를 입력해주세요.');
   }
-
-  userAnswer = Array.from(userInput).map(Number);
 
   if (new Set(userAnswer).size !== userAnswer.length) {
     throw new Error('[ERROR] 중복된 수를 입력하시면 안됩니다.');
@@ -50,7 +47,7 @@ async function CompareAnswer(CORRECT_ANSWER, userAnswer) {
 async function playNumberGame() {
   const answer = RandomAnswer();
   // 테스트 할 때 정답을 알기위한 로그
-  // console.log(answer);
+  console.log(answer);
 
   while (true) {
     // eslint-disable-next-line no-await-in-loop
