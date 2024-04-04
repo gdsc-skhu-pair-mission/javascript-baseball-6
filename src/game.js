@@ -16,7 +16,7 @@ const generateRandomNumber = () => {
 const getUserInput = async () => {
   let inputNumber = [];
   let user_input = await Console.readLineAsync("숫자를 입력해주세요: ");
-  checkUserInputNumber(inputNumber, user_input);
+  await checkUserInputNumber(inputNumber, user_input);
   return inputNumber;
 };
 
@@ -57,7 +57,7 @@ const playGame = async () => {
     if (strike === NUM_DIGITS) {
       Console.print("3스트라이크!");
       Console.print("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-      askForRePlay();
+      await askForRePlay();
       break;
     }
     checkGameScore(strike, ball);
