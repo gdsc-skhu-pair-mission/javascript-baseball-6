@@ -85,6 +85,7 @@ const askForRePlay = async () => {
   if (ANSWER === "1") {
     await playGame();
   } else if (ANSWER === "2") {
+    return;
   } else {
     throw new Error("[ERROR]");
   }
